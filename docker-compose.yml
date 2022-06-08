@@ -1,0 +1,29 @@
+services:
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8080:80"
+    # depends_on:
+    #   - app_1
+    #   - app_2
+    # links:
+    #   - app_1
+    #   - app_2
+  app_1:
+    image: golang:1.16-alpine
+    container_name: app_1
+    environment:
+      - APP="APP_1"
+    build: app
+    ports:
+      - "8081:8081"
+  app_2:
+    image: golang:1.16-alpine
+    container_name: app_2
+    build: app
+    environment:
+      - APP="APP_2"
+    ports:
+      - "8082:8081"
